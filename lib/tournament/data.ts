@@ -6,25 +6,27 @@ import type {
 } from "./types";
 
 // ---------------------------------------------------------------------------
-// WK 2026 — representative / predicted dataset (the official draw is pending).
-// 48 teams · 12 groups · real host venues. Fully editable from the app.
+// WK 2026 — official final draw (5 December 2025). 48 teams · 12 groups.
+// Real host venues. Group fixtures follow FIFA's standard round-robin order;
+// kick-off dates are spread across the official tournament window and are
+// editable in the app. Teams/groups verified against fifa.com & Wikipedia.
 // ---------------------------------------------------------------------------
 
 // prettier-ignore
 const GROUPS: Record<string, [string, string, string][]> = {
-  // group: [id, name, flag]
-  A: [["MEX","Mexico","🇲🇽"],["CRO","Kroatië","🇭🇷"],["KSA","Saoedi-Arabië","🇸🇦"],["ECU","Ecuador","🇪🇨"]],
-  B: [["CAN","Canada","🇨🇦"],["MAR","Marokko","🇲🇦"],["SCO","Schotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿"],["CIV","Ivoorkust","🇨🇮"]],
-  C: [["FRA","Frankrijk","🇫🇷"],["NOR","Noorwegen","🇳🇴"],["HAI","Haïti","🇭🇹"],["KOR","Zuid-Korea","🇰🇷"]],
-  D: [["USA","VS","🇺🇸"],["TUR","Turkije","🇹🇷"],["SEN","Senegal","🇸🇳"],["AUS","Australië","🇦🇺"]],
-  E: [["ESP","Spanje","🇪🇸"],["UKR","Oekraïne","🇺🇦"],["CUW","Curaçao","🇨🇼"],["IRN","Iran","🇮🇷"]],
+  // group: [id, name, flag] — in drawn position order (1..4)
+  A: [["MEX","Mexico","🇲🇽"],["RSA","Zuid-Afrika","🇿🇦"],["KOR","Zuid-Korea","🇰🇷"],["CZE","Tsjechië","🇨🇿"]],
+  B: [["CAN","Canada","🇨🇦"],["BIH","Bosnië-Herzegovina","🇧🇦"],["QAT","Qatar","🇶🇦"],["SUI","Zwitserland","🇨🇭"]],
+  C: [["BRA","Brazilië","🇧🇷"],["MAR","Marokko","🇲🇦"],["HAI","Haïti","🇭🇹"],["SCO","Schotland","🏴󠁧󠁢󠁳󠁣󠁴󠁿"]],
+  D: [["USA","VS","🇺🇸"],["PAR","Paraguay","🇵🇾"],["AUS","Australië","🇦🇺"],["TUR","Turkije","🇹🇷"]],
+  E: [["GER","Duitsland","🇩🇪"],["CUW","Curaçao","🇨🇼"],["CIV","Ivoorkust","🇨🇮"],["ECU","Ecuador","🇪🇨"]],
   F: [["NED","Nederland","🇳🇱"],["JPN","Japan","🇯🇵"],["SWE","Zweden","🇸🇪"],["TUN","Tunesië","🇹🇳"]],
-  G: [["BEL","België","🇧🇪"],["EGY","Egypte","🇪🇬"],["COL","Colombia","🇨🇴"],["QAT","Qatar","🇶🇦"]],
-  H: [["ENG","Engeland","🏴󠁧󠁢󠁥󠁮󠁧󠁿"],["DEN","Denemarken","🇩🇰"],["PAN","Panama","🇵🇦"],["GHA","Ghana","🇬🇭"]],
-  I: [["BRA","Brazilië","🇧🇷"],["SUI","Zwitserland","🇨🇭"],["NZL","Nieuw-Zeeland","🇳🇿"],["NGA","Nigeria","🇳🇬"]],
-  J: [["ARG","Argentinië","🇦🇷"],["AUT","Oostenrijk","🇦🇹"],["JOR","Jordanië","🇯🇴"],["CPV","Kaapverdië","🇨🇻"]],
-  K: [["GER","Duitsland","🇩🇪"],["URU","Uruguay","🇺🇾"],["CRC","Costa Rica","🇨🇷"],["ALG","Algerije","🇩🇿"]],
-  L: [["POR","Portugal","🇵🇹"],["POL","Polen","🇵🇱"],["PAR","Paraguay","🇵🇾"],["CMR","Kameroen","🇨🇲"]],
+  G: [["BEL","België","🇧🇪"],["EGY","Egypte","🇪🇬"],["IRN","Iran","🇮🇷"],["NZL","Nieuw-Zeeland","🇳🇿"]],
+  H: [["ESP","Spanje","🇪🇸"],["CPV","Kaapverdië","🇨🇻"],["KSA","Saoedi-Arabië","🇸🇦"],["URU","Uruguay","🇺🇾"]],
+  I: [["FRA","Frankrijk","🇫🇷"],["SEN","Senegal","🇸🇳"],["IRQ","Irak","🇮🇶"],["NOR","Noorwegen","🇳🇴"]],
+  J: [["ARG","Argentinië","🇦🇷"],["ALG","Algerije","🇩🇿"],["AUT","Oostenrijk","🇦🇹"],["JOR","Jordanië","🇯🇴"]],
+  K: [["POR","Portugal","🇵🇹"],["COD","DR Congo","🇨🇩"],["UZB","Oezbekistan","🇺🇿"],["COL","Colombia","🇨🇴"]],
+  L: [["ENG","Engeland","🏴󠁧󠁢󠁥󠁮󠁧󠁿"],["CRO","Kroatië","🇭🇷"],["GHA","Ghana","🇬🇭"],["PAN","Panama","🇵🇦"]],
 };
 
 const GROUP_KEYS = Object.keys(GROUPS);

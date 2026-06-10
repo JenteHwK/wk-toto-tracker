@@ -2,13 +2,15 @@ import type { Bet } from "@/lib/types";
 import { betResult } from "@/lib/calculations";
 import type { ResolvedMatch, TournamentTeam } from "./types";
 
-function norm(s: string): string {
-  return s.toLowerCase().trim();
+/** Lowercase and reduce any punctuation to single spaces, padded with spaces. */
+function tokens(s: string): string {
+  return ` ${s.toLowerCase().replace(/[^\p{L}\p{N}]+/gu, " ").trim()} `;
 }
 
+/** Whole-word match so short names ("VS") don't match inside other words. */
 function mentions(text: string | undefined, name: string): boolean {
   if (!text) return false;
-  return norm(text).includes(norm(name));
+  return tokens(text).includes(tokens(name));
 }
 
 function betLabels(bet: Bet): string[] {
