@@ -3,11 +3,12 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion } from "framer-motion";
-import { LayoutDashboard, BarChart3, Settings } from "lucide-react";
+import { LayoutDashboard, BarChart3, Settings, Trophy } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const links = [
   { href: "/", label: "Dashboard", icon: LayoutDashboard },
+  { href: "/toernooi", label: "Toernooi", icon: Trophy },
   { href: "/analytics", label: "Analytics", icon: BarChart3 },
   { href: "/beheer", label: "Beheer", icon: Settings },
 ];
