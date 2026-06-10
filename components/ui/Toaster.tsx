@@ -34,7 +34,7 @@ export function Toaster() {
         <div
           key={t.id}
           className={cn(
-            "pointer-events-auto flex animate-toast-in items-start gap-3 rounded-xl border border-l-4 border-border bg-card p-4 shadow-lg",
+            "pointer-events-auto flex animate-toast-in items-start gap-3 rounded-2xl border-l-4 glass-strong p-4 shadow-card",
             accents[t.variant]
           )}
         >

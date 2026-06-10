@@ -18,13 +18,9 @@ export const THEME_STORAGE_KEY = "wk-toto-theme";
 export const themeInitScript = `
 (function() {
   try {
-    var t = localStorage.getItem('${THEME_STORAGE_KEY}');
-    if (!t) t = 'dark';
-    if (t === 'dark') document.documentElement.classList.add('dark');
-    else document.documentElement.classList.remove('dark');
-  } catch (e) {
-    document.documentElement.classList.add('dark');
-  }
+    var t = localStorage.getItem('${THEME_STORAGE_KEY}') || 'dark';
+    document.documentElement.classList.toggle('light', t === 'light');
+  } catch (e) {}
 })();
 `;
 
@@ -39,7 +35,7 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
   const apply = React.useCallback((next: Theme) => {
     setThemeState(next);
     localStorage.setItem(THEME_STORAGE_KEY, next);
-    document.documentElement.classList.toggle("dark", next === "dark");
+    document.documentElement.classList.toggle("light", next === "light");
   }, []);
 
   const value = React.useMemo<ThemeContextValue>(

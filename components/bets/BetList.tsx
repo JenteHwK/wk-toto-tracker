@@ -1,8 +1,9 @@
 "use client";
 
+import { motion, AnimatePresence } from "framer-motion";
 import { Inbox } from "lucide-react";
 import type { Bet } from "@/lib/types";
-import { BetCard } from "./BetCard";
+import { SportBetCard } from "./SportBetCard";
 
 interface BetListProps {
   bets: Bet[];
@@ -21,27 +22,28 @@ export function BetList({
 }: BetListProps) {
   if (bets.length === 0) {
     return (
-      <div className="flex flex-col items-center justify-center rounded-2xl border border-dashed border-border bg-card/50 py-16 text-center">
-        <span className="mb-3 flex h-12 w-12 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
-          <Inbox size={22} />
+      <div className="flex flex-col items-center justify-center rounded-3xl border border-dashed border-border glass py-16 text-center">
+        <span className="mb-3 flex h-14 w-14 items-center justify-center rounded-2xl bg-muted text-muted-foreground">
+          <Inbox size={24} />
         </span>
-        <p className="font-semibold">{emptyTitle}</p>
+        <p className="font-display font-bold">{emptyTitle}</p>
         <p className="mt-1 max-w-xs text-sm text-muted-foreground">{emptyHint}</p>
       </div>
     );
   }
 
   return (
-    <div className="grid gap-4 lg:grid-cols-2">
-      {bets.map((bet, i) => (
-        <div
-          key={bet.id}
-          className="animate-fade-in"
-          style={{ animationDelay: `${Math.min(i * 30, 300)}ms` }}
-        >
-          <BetCard bet={bet} onEdit={onEdit} onDelete={onDelete} />
-        </div>
-      ))}
-    </div>
+    <motion.div layout className="grid gap-4 lg:grid-cols-2">
+      <AnimatePresence mode="popLayout">
+        {bets.map((bet) => (
+          <SportBetCard
+            key={bet.id}
+            bet={bet}
+            onEdit={onEdit}
+            onDelete={onDelete}
+          />
+        ))}
+      </AnimatePresence>
+    </motion.div>
   );
 }

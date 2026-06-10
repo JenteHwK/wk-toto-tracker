@@ -47,7 +47,7 @@ export function BetFilters({
     JSON.stringify(filters) !== JSON.stringify(DEFAULT_FILTERS);
 
   return (
-    <div className="space-y-3 rounded-2xl border border-border bg-card p-4">
+    <div className="space-y-3 rounded-3xl glass p-4">
       {/* Search + status tabs */}
       <div className="flex flex-col gap-3 lg:flex-row lg:items-center">
         <div className="relative flex-1">

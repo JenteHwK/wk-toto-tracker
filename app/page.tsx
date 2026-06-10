@@ -1,13 +1,14 @@
 "use client";
 
 import * as React from "react";
-import { Plus, Trophy, ClipboardCheck } from "lucide-react";
+import { Plus, ClipboardCheck, ListChecks } from "lucide-react";
 import { useBetStore } from "@/store/useBetStore";
 import { useToastStore } from "@/store/useToastStore";
 import { computeStats } from "@/lib/calculations";
 import { applyFilters, DEFAULT_FILTERS } from "@/lib/filter";
 import type { Bet, FilterState } from "@/lib/types";
-import { DashboardStats } from "@/components/dashboard/DashboardStats";
+import { Hero } from "@/components/dashboard/Hero";
+import { BentoStats } from "@/components/dashboard/BentoStats";
 import { DashboardSkeleton, BetCardSkeleton } from "@/components/ui/Skeleton";
 import { BetFilters } from "@/components/bets/BetFilters";
 import { BetList } from "@/components/bets/BetList";
@@ -60,35 +61,41 @@ export default function DashboardPage() {
 
   return (
     <div className="space-y-8">
-      {/* Header */}
-      <div className="flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-        <div>
-          <div className="mb-1 flex items-center gap-2 text-sm font-medium text-primary">
-            <Trophy size={16} /> WK 2026
-          </div>
-          <h1 className="text-2xl font-bold tracking-tight sm:text-3xl">
-            Mijn Toto Dashboard
-          </h1>
-          <p className="mt-1 text-sm text-muted-foreground">
-            Overzicht van al je weddenschappen, winst en statistieken.
-          </p>
-        </div>
+      {/* Hero */}
+      {hasHydrated ? (
+        <Hero stats={stats} />
+      ) : (
+        <div className="h-72 animate-pulse rounded-3xl glass" />
+      )}
+
+      {/* Action bar */}
+      <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 className="font-display text-xl font-bold tracking-tight">
+          Overzicht & statistieken
+        </h2>
         <div className="flex gap-2">
-          <Button size="lg" variant="outline" onClick={() => setWizardOpen(true)}>
-            <ClipboardCheck size={18} /> Uitslag invoeren
+          <Button variant="outline" onClick={() => setWizardOpen(true)}>
+            <ClipboardCheck size={17} /> Uitslag invoeren
           </Button>
-          <Button size="lg" onClick={openAdd}>
-            <Plus size={18} /> Nieuwe bet
+          <Button onClick={openAdd}>
+            <Plus size={17} /> Nieuwe bet
           </Button>
         </div>
       </div>
 
       {/* Stats */}
-      {hasHydrated ? <DashboardStats stats={stats} /> : <DashboardSkeleton />}
+      {hasHydrated ? <BentoStats stats={stats} /> : <DashboardSkeleton />}
 
       {/* Bets */}
       <section className="space-y-4">
-        <h2 className="text-lg font-semibold tracking-tight">Wedstrijdschema & bets</h2>
+        <div className="flex items-center gap-2">
+          <span className="flex h-8 w-8 items-center justify-center rounded-xl bg-primary/10 text-primary">
+            <ListChecks size={16} />
+          </span>
+          <h2 className="font-display text-xl font-bold tracking-tight">
+            Wedstrijdschema &amp; bets
+          </h2>
+        </div>
         <BetFilters
           bets={bets}
           filters={filters}

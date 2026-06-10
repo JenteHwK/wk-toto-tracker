@@ -4,47 +4,51 @@
 
 @layer base {
   :root {
-    /* Light theme */
-    --background: 220 33% 97%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --muted: 220 14% 94%;
-    --muted-foreground: 220 9% 43%;
-    --primary: 199 89% 48%;
-    --primary-foreground: 0 0% 100%;
-    --border: 220 13% 88%;
-    --input: 220 13% 88%;
-    --ring: 199 89% 48%;
+    /* ---- Dark is the signature theme ---- */
+    --background: 240 10% 3.5%; /* #09090B */
+    --surface: 222 39% 11%; /* #111827 */
+    --card: 222 32% 13%;
+    --card-foreground: 210 40% 98%;
+    --foreground: 210 40% 98%;
+    --muted: 222 24% 18%;
+    --muted-foreground: 215 18% 62%;
 
-    --open: 28 92% 53%;
-    --open-soft: 28 92% 53%;
-    --won: 150 64% 38%;
-    --won-soft: 150 64% 38%;
-    --lost: 0 75% 55%;
-    --lost-soft: 0 75% 55%;
+    --primary: 29 100% 50%; /* #FF7A00 deep orange */
+    --primary-foreground: 0 0% 100%;
+    --gold: 43 96% 56%; /* #FBBF24 */
+
+    --border: 222 20% 20%;
+    --input: 222 20% 22%;
+    --ring: 29 100% 50%;
+
+    --open: 29 100% 50%; /* orange */
+    --won: 142 71% 45%; /* #22C55E */
+    --lost: 0 84% 60%; /* #EF4444 */
+
+    --font-sans: var(--font-inter), system-ui, sans-serif;
+    --font-display: var(--font-sora), var(--font-inter), sans-serif;
   }
 
-  .dark {
-    /* Dark theme — professional deep navy */
-    --background: 222 47% 7%;
-    --foreground: 210 40% 96%;
-    --card: 222 41% 11%;
-    --card-foreground: 210 40% 96%;
-    --muted: 217 33% 17%;
-    --muted-foreground: 215 20% 65%;
-    --primary: 199 89% 52%;
-    --primary-foreground: 222 47% 7%;
-    --border: 217 33% 20%;
-    --input: 217 33% 20%;
-    --ring: 199 89% 52%;
+  .light {
+    --background: 30 30% 97%;
+    --surface: 0 0% 100%;
+    --card: 0 0% 100%;
+    --card-foreground: 222 47% 11%;
+    --foreground: 222 47% 11%;
+    --muted: 30 16% 92%;
+    --muted-foreground: 222 12% 42%;
 
-    --open: 32 95% 58%;
-    --open-soft: 32 95% 58%;
-    --won: 150 70% 45%;
-    --won-soft: 150 70% 45%;
-    --lost: 0 84% 62%;
-    --lost-soft: 0 84% 62%;
+    --primary: 24 95% 48%;
+    --primary-foreground: 0 0% 100%;
+    --gold: 38 92% 48%;
+
+    --border: 30 14% 86%;
+    --input: 30 14% 86%;
+    --ring: 24 95% 48%;
+
+    --open: 24 95% 50%;
+    --won: 142 64% 38%;
+    --lost: 0 75% 52%;
   }
 
   * {
@@ -53,18 +57,88 @@
 
   body {
     @apply bg-background text-foreground;
-    font-feature-settings: "rlig" 1, "calt" 1;
+    font-family: var(--font-sans);
+    font-feature-settings: "ss01", "cv11";
+    -webkit-font-smoothing: antialiased;
   }
 
   html {
     scroll-behavior: smooth;
   }
+
+  h1, h2, h3, .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.02em;
+  }
 }
 
 @layer utilities {
+  /* Glassmorphism card surface */
   .glass {
-    background: hsl(var(--card) / 0.7);
-    backdrop-filter: blur(12px);
+    background: linear-gradient(
+      145deg,
+      hsl(var(--card) / 0.7),
+      hsl(var(--surface) / 0.55)
+    );
+    backdrop-filter: blur(16px) saturate(140%);
+    -webkit-backdrop-filter: blur(16px) saturate(140%);
+    border: 1px solid hsl(0 0% 100% / 0.06);
+  }
+
+  .glass-strong {
+    background: hsl(var(--surface) / 0.85);
+    backdrop-filter: blur(20px) saturate(160%);
+    -webkit-backdrop-filter: blur(20px) saturate(160%);
+    border: 1px solid hsl(0 0% 100% / 0.08);
+  }
+
+  /* Subtle noise overlay for depth */
+  .noise {
+    position: relative;
+  }
+  .noise::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+    mix-blend-mode: overlay;
+  }
+
+  .text-gold {
+    color: hsl(var(--gold));
+  }
+
+  .gradient-orange {
+    background: linear-gradient(135deg, hsl(29 100% 52%), hsl(14 100% 55%));
+  }
+  .gradient-gold {
+    background: linear-gradient(135deg, hsl(43 96% 56%), hsl(29 100% 50%));
+  }
+  .gradient-won {
+    background: linear-gradient(135deg, hsl(142 71% 48%), hsl(160 70% 42%));
+  }
+  .gradient-lost {
+    background: linear-gradient(135deg, hsl(0 84% 62%), hsl(350 80% 52%));
+  }
+
+  .text-gradient-orange {
+    background: linear-gradient(120deg, hsl(43 96% 60%), hsl(29 100% 55%) 60%, hsl(14 100% 58%));
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+  }
+
+  .glow-orange {
+    box-shadow: 0 0 0 1px hsl(29 100% 50% / 0.2),
+      0 8px 40px -8px hsl(29 100% 50% / 0.45);
+  }
+  .glow-gold {
+    box-shadow: 0 0 60px -12px hsl(43 96% 56% / 0.5);
+  }
+  .glow-won {
+    box-shadow: 0 0 0 1px hsl(142 71% 45% / 0.3), 0 8px 36px -10px hsl(142 71% 45% / 0.4);
   }
 
   .scrollbar-thin::-webkit-scrollbar {
@@ -79,10 +153,21 @@
     background: transparent;
   }
 
-  .gradient-text {
-    background: linear-gradient(135deg, hsl(199 89% 52%), hsl(265 89% 65%));
-    -webkit-background-clip: text;
-    background-clip: text;
-    color: transparent;
+  @keyframes blob-drift {
+    0%, 100% { transform: translate(0, 0) scale(1); }
+    33% { transform: translate(4%, -3%) scale(1.05); }
+    66% { transform: translate(-3%, 4%) scale(0.97); }
+  }
+  .animate-blob {
+    animation: blob-drift 18s ease-in-out infinite;
+  }
+
+  @keyframes pulse-ring {
+    0% { box-shadow: 0 0 0 0 hsl(var(--open) / 0.5); }
+    70% { box-shadow: 0 0 0 8px hsl(var(--open) / 0); }
+    100% { box-shadow: 0 0 0 0 hsl(var(--open) / 0); }
+  }
+  .pulse-ring {
+    animation: pulse-ring 2.2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
   }
 }

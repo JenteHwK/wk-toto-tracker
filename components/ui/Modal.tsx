@@ -49,7 +49,7 @@ export function Modal({
         role="dialog"
         aria-modal="true"
         className={cn(
-          "relative z-10 my-8 w-full max-w-lg animate-scale-in rounded-2xl border border-border bg-card p-6 shadow-2xl",
+          "relative z-10 my-8 w-full max-w-lg animate-scale-in rounded-3xl glass-strong p-6 shadow-2xl",
           className
         )}
       >
@@ -61,7 +61,9 @@ export function Modal({
           <X size={18} />
         </button>
         {title && (
-          <h2 className="pr-8 text-lg font-semibold tracking-tight">{title}</h2>
+          <h2 className="pr-8 font-display text-lg font-bold tracking-tight">
+            {title}
+          </h2>
         )}
         {description && (
           <p className="mt-1 text-sm text-muted-foreground">{description}</p>
